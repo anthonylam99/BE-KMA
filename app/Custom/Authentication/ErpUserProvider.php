@@ -153,7 +153,7 @@ class ErpUserProvider implements UserProvider
      */
     public function validateCredentials(UserContract $user, array $credentials)
     {
-        $plain = $credentials['adm_password'];
+        $plain = $credentials['password'];
 
         $options = ['hash' => $user->adm_hash];
 

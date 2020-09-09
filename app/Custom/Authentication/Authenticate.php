@@ -38,7 +38,7 @@ trait Authenticate
      */
     public function getAuthPassword()
     {
-        return $this->adm_password;
+        return $this->password;
     }
 
     /**

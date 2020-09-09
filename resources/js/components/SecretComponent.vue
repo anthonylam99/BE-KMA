@@ -47,22 +47,11 @@
                 // send axios request to the login route
                 axios.get('/sanctum/csrf-cookie').then(response => {
                     axios.post('/login', this.formData).then(response => {
-                        // console.log(response);
-                        this.getHome();
+                        console.log(response)
                     });
                 });
-            },
-            getHome(){
-                axios.get('/api/user/home').then(response => {
-                    console.log(response);
-                })
             }
-            // getSecrets() {
-            //     axios.get('/api/user/-home').then(response => {
-            //         console.log(response);
-            //         this.secrets = response.data;
-            //     });
-            // }
+           
         }
     }
 </script>

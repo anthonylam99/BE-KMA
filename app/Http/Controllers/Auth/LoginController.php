@@ -29,8 +29,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
+    // protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/me';
     /**
      * Create a new controller instance.
      *
@@ -49,7 +49,7 @@ class LoginController extends Controller
      */
     public function username()
     {
-        return 'username';
+        return 'email';
     }
 
     /**
@@ -108,7 +108,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        return $user->adm_id;
+        return response()->json($user);
     }
 
     /**
@@ -120,8 +120,8 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
         return [
-            'adm_loginname' => $request->username,
-            'adm_password' => $request->password,
+            'email' => $request->email,
+            'password' => $request->password,
         ];
     }
 }

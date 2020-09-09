@@ -13,8 +13,8 @@ class AccessTokenController extends Controller
     public function getAccessToken(Request $request)
     {
         $credentials = [
-            'adm_loginname' => $request->username,
-            'adm_password' => $request->password,
+            'email' => $request->email,
+            'password' => $request->password,
         ];
 
         if (! Auth::once($credentials)) {

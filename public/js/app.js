@@ -1991,22 +1991,10 @@ __webpack_require__.r(__webpack_exports__);
       // send axios request to the login route
       axios.get('/sanctum/csrf-cookie').then(function (response) {
         axios.post('/login', _this.formData).then(function (response) {
-          // console.log(response);
-          _this.getHome();
+          console.log(response);
         });
       });
-    },
-    getHome: function getHome() {
-      axios.get('/api/user/home').then(function (response) {
-        console.log(response);
-      });
-    } // getSecrets() {
-    //     axios.get('/api/user/-home').then(response => {
-    //         console.log(response);
-    //         this.secrets = response.data;
-    //     });
-    // }
-
+    }
   }
 });
 
