@@ -20,7 +20,8 @@ class CheckAdmin
         if(Auth::check()){
             $id             = Auth::user()->adm_id;
 
-            $group_adm_id   = DB::table('adm_user')->where('adm_id', $id)->whereIn('adm_group_id', [1])->pluck('adm_group_id');
+            $group_adm_id   = DB::table('adm_user')->where('adm_id', $id)->where('adm_group_id', "LIKE" , "%". 1 . "%")->pluck('adm_group_id');
+
             if(count($group_adm_id) > 0){
                 return $next($request);
             }else{
