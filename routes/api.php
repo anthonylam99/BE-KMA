@@ -21,6 +21,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function () {
     Route::post('get-access-token', 'AccessTokenController@getAccessToken');
 });
 
+Route::group(['prefix' => 'student', 'namespace' =>'Student'], function(){
+    Route::get('list-all','StudentController@allList');
+});
+
 /********************Admin Route ******************************** */
 // Route::group(['middleware'  => 'auth:sanctum'], function () {
 //     Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function(){
