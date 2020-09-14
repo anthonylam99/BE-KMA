@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User\User;
 use App\Model\UserModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -23,8 +24,8 @@ class UserController extends Controller
         $arr_depot_replace = preg_replace($pattern, "", $request->group_id);
         $adm_group = implode(",", $arr_depot_replace);
 
-        $user = DB::table('adm_user')->where('adm_username', $request->username)->get();
-        $email = DB::table('adm_user')->where('adm_gmail', $request->gmail)->get();
+        $user = DB::table('adm_user')->where('adm_loginname', $request->username)->get();
+        $email = DB::table('adm_user')->where('email', $request->gmail)->get();
         $phone = DB::table('adm_user')->where('adm_phone', $request->phone)->get();
 
         if (count($user) > 0) {
@@ -41,9 +42,9 @@ class UserController extends Controller
             ]);
         } else {
             $id = DB::table('adm_user')->insertGetId([
-                'adm_username'          => $request->username,
+                'adm_loginname'          => $request->username,
                 'adm_username_md5'      => md5($request->username),
-                'adm_password'          => md5($request->password . $adm_hash),
+                'password'              => md5($request->password.$adm_hash),
                 'adm_hash'              => $adm_hash,
                 'adm_status'            => 1,
                 'adm_name'              => $request->name,
@@ -51,7 +52,7 @@ class UserController extends Controller
                 'adm_sex'               => $request->sex,
                 'adm_birthday'          => strtotime($request->birthday),
                 'adm_phone'             => $request->phone,
-                'adm_gmail'             => $request->gmail,
+                'email'                 => $request->email,
                 'adm_group_id'          => $adm_group,
                 'adm_register_time'     => Carbon::now()
             ]);
@@ -115,5 +116,9 @@ class UserController extends Controller
     public function home(Request $request){
         
         return "home";
+    }
+
+    public function getMe(){
+        return new User(admin_user());
     }
 }

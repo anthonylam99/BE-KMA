@@ -6,7 +6,7 @@
                 <form action="#" @submit.prevent="handleLogin">
                     <h3>Sign in for secrets</h3>
                     <div class="form-row">
-                        <input type="text" name="username" class="form-control" v-model="formData.username" placeholder="Username">
+                        <input type="text" name="email " class="form-control" v-model="formData.email " placeholder="email">
                     </div>
                     <div class="form-row">
                         <input type="password" name="password" class="form-control" v-model="formData.password" placeholder="Password">
@@ -37,7 +37,7 @@
             return {
                 secrets: [],
                 formData: {
-                    username: '',
+                    email : '',
                     password: ''
                 }
             }
@@ -47,7 +47,7 @@
                 // send axios request to the login route
                 axios.get('/sanctum/csrf-cookie').then(response => {
                     axios.post('/login', this.formData).then(response => {
-                        console.log(response)
+
                     });
                 });
             }

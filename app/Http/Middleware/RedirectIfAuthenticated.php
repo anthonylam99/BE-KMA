@@ -19,10 +19,10 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            if($request->wantsJson()){
-                return response()->json($request->user());
-            }
-            return redirect(RouteServiceProvider::HOME);
+            // if($request->wantsJson()){
+            //     return response()->json($request->user());
+            // }
+            return redirect(RouteServiceProvider::ME);
         }
 
         return $next($request);

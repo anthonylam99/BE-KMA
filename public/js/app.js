@@ -1979,7 +1979,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       secrets: [],
       formData: {
-        username: '',
+        email: '',
         password: ''
       }
     };
@@ -1990,9 +1990,7 @@ __webpack_require__.r(__webpack_exports__);
 
       // send axios request to the login route
       axios.get('/sanctum/csrf-cookie').then(function (response) {
-        axios.post('/login', _this.formData).then(function (response) {
-          console.log(response);
-        });
+        axios.post('/login', _this.formData).then(function (response) {});
       });
     }
   }
@@ -38298,23 +38296,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.formData.username,
-                        expression: "formData.username"
+                        value: _vm.formData.email,
+                        expression: "formData.email "
                       }
                     ],
                     staticClass: "form-control",
                     attrs: {
                       type: "text",
-                      name: "username",
-                      placeholder: "Username"
+                      name: "email ",
+                      placeholder: "email"
                     },
-                    domProps: { value: _vm.formData.username },
+                    domProps: { value: _vm.formData.email },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.formData, "username", $event.target.value)
+                        _vm.$set(_vm.formData, "email", $event.target.value)
                       }
                     }
                   })
@@ -50831,8 +50829,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\BE-KMA\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\BE-KMA\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\a_KMA\BE-KMA\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\a_KMA\BE-KMA\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Resources\User;
+
+use App\Http\Resources\Common\Hub;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class User extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function toArray($request)
+    {
+        // dd($this->pivot);
+        return [
+            'id'          => $this->adm_id
+        ];
+    }
+}

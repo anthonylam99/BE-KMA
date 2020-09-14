@@ -21,18 +21,39 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function () {
     Route::post('get-access-token', 'AccessTokenController@getAccessToken');
 });
 
-Route::group(['middleware'  => 'auth:sanctum'], function () {
-    Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function(){
-        Route::group(['namespace' => 'Classes','prefix' => 'class'], function(){
-            Route::post('add-student','StudentController@addStudent');
-            Route::post('student-checkin','StudentController@checkIn');
-        });
-    });
-    Route::group(['prefix' => 'user'], function () {
+/********************Admin Route ******************************** */
+// Route::group(['middleware'  => 'auth:sanctum'], function () {
+//     Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function(){
+//         Route::group(['namespace' => 'Classes','prefix' => 'class'], function(){
+//             Route::post('add-student','StudentController@addStudent');
+//             Route::post('student-checkin','StudentController@checkIn');
+//             Route::post('add-teacher','TeacherController@addTeacher');
+//         });
+//     });
 
-        Route::get('admin-home', function () {
-            return "admin-home";
-        })->middleware('admin');
+// });
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+    Route::group(['namespace' => 'Classes', 'prefix' => 'class'], function () {
+        Route::post('add-student', 'StudentController@addStudent');
+        Route::post('student-checkin', 'StudentController@checkIn');
+        Route::post('add-teacher', 'TeacherController@addTeacher');
     });
 });
 
+
+/*******************Student Route*************************************/
+Route::group(['middleware'  => 'auth:sanctum'], function () {
+    Route::group(['middleware' => 'student', 'prefix' => 'student', 'namespace' => 'Student'], function () {
+    });
+});
+
+Route::group(['prefix' => 'users', 'namespace' => 'User'], function () {
+    Route::post('register', 'UserController@add');
+    Route::get('admin-home', function () {
+        return "admin-home";
+    })->middleware('admin');
+});
+Route::group(['namespace' => 'User'],  function () {
+    Route::get('me', 'UserController@getMe');
+});

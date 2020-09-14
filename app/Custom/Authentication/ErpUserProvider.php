@@ -7,6 +7,7 @@ use App\Custom\Authentication\User;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
+use Illuminate\Contracts\Support\Arrayable;
 
 class ErpUserProvider implements UserProvider
 {
@@ -156,7 +157,7 @@ class ErpUserProvider implements UserProvider
         $plain = $credentials['password'];
 
         $options = ['hash' => $user->adm_hash];
-
+        
         return $this->hasher->check($plain, $user->getAuthPassword(), $options);
     }
 
