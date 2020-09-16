@@ -11,6 +11,7 @@ class StudentController extends Controller
 {
     public function addStudent(Request $request)
     {
+        $st_id              = $request->has('st_id') ? $request->st_id : 0;
         $code               = $request->has('st_code') ? $request->st_code : "";
         $class_name         = $request->has('st_class_name') ? $request->st_class_name : "";
         $class_code         = $request->has('st_class_code') ? $request->st_class_code : "";
@@ -27,11 +28,13 @@ class StudentController extends Controller
 
         $insert = DB::table('students_in_class')->updateOrInsert(
             [
+                'st_id'                             => $st_id,
                 'st_code'                           => $code,
                 'st_class_name'                     => $class_name,
                 'st_class_code'                     => $class_code
             ],
             [
+                'st_id'                             => $st_id,
                 'st_code'                           => $code,
                 'st_class_name'                     => $class_name,
                 'st_class_code'                     => $class_code,
@@ -79,6 +82,22 @@ class StudentController extends Controller
             return response()->json(['message'      => 'Thêm mới thành công']);
         } else {
             return response()->json(['message'      => 'Thêm mới thất bại'], 500);
+        }
+    }
+    public function deleteStudentInClass(Request $request){
+        $st_id          = $request->has('st_id') ? $request->st_id : 0;
+        $class_id       = $request->has('class_id') ? $request->class_id : 0;
+        $update = DB::table('students_in_class')->where([
+            'st_id'         => $st_id,
+            'st_class_id'   => $class_id,
+        ])->update([
+            'st_class_status'   => 3 /**Trang thai ngung hoat dong */
+        ]);
+
+        if ($update) {
+            return response()->json(['message'      => 'Cập nhật thành công']);
+        } else {
+            return response()->json(['message'      => 'Cập nhật thất bại'], 500);
         }
     }
 }
