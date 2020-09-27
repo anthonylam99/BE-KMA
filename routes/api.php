@@ -41,8 +41,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::group(['namespace' => 'Classes', 'prefix' => 'class'], function () {
         Route::post('add-student', 'StudentController@addStudent');
         Route::post('student-checkin', 'StudentController@checkIn');
-        Route::post('add-teacher', 'TeacherController@addTeacher');
         Route::post('delete-student','StudentController@deleteStudentInClass');
+
+        /****************************ROUTE TEACHER******************************/
+        Route::post('add-teacher', 'TeacherController@addTeacher');
+        Route::post('teacher-checkin','TeacherController@checkIn');
+        Route::post('delete-teacher','TeacherController@deleteTeacherInClass');
+
+        /****************************CLASS ROUTE******************************/
+        Route::post('add','ClassController@add');
     });
 });
 
