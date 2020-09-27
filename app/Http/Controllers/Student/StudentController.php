@@ -14,7 +14,7 @@ class StudentController extends Controller
 
         $data = DB::table('students_in_class')
         ->join('adm_user','st_id','=','adm_id')
-        ->where('class_id', $class_id)
+        ->where('st_class_id', $class_id)
         ->get();
         
         
