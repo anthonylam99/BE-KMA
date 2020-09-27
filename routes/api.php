@@ -22,7 +22,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function () {
 });
 
 Route::group(['prefix' => 'student', 'namespace' =>'Student'], function(){
-    Route::post('list-all','StudentController@allList');
+    Route::get('list-all','StudentController@allList');
 });
 
 /********************Admin Route ******************************** */
