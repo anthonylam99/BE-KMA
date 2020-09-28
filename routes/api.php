@@ -25,6 +25,11 @@ Route::group(['prefix' => 'student', 'namespace' =>'Student'], function(){
     Route::get('list-all','StudentController@allList');
 });
 
+Route::group(['prefix' => 'teacher', 'namespace' =>'Teacher'], function(){
+    Route::get('list-all','TeacherController@getList');
+});
+
+
 /********************Admin Route ******************************** */
 // Route::group(['middleware'  => 'auth:sanctum'], function () {
 //     Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function(){
