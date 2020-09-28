@@ -37,8 +37,8 @@ class ClassController extends Controller
                 'class_name'        => $class_name,
                 'class_status'      => $class_status,
                 'class_type'        => $class_type,
-                'class_start'       => $class_start,
-                'class_end'         => $class_end,
+                'class_start'       => strtotime($class_start),
+                'class_end'         => strtotime($class_end),
                 'number_of_sessions_per_week' => $session_per_week,
                 'number_of_sessions'    => $num_of_sesssion,
                 'fee'               => $fee
@@ -49,5 +49,24 @@ class ClassController extends Controller
         } else {
             return response()->json(['message'      => 'Thêm mới thất bại'], 500);
         }
+    }
+    public function getSchedule(Request $request)
+    {
+        $date = [];
+        $startDate           =  $request->has('startDate') ? $request->startDate : "";
+
+        $time                = strtotime($startDate);
+        
+        $data = DB::table('class')->where('class_start', '>=', $time)->get();
+        foreach ($data as $value) {
+            array_push($date, $value->class_end);
+        }
+        $endDate = date("Y-m-d", max(array_unique($date)));
+
+        $dateRange = range(strtotime($startDate), strtotime($endDate), "86400");
+        array_walk_recursive($dateRange, function (&$element) {
+            $element = date("Y-m-d", $element);
+        });
+        
     }
 }

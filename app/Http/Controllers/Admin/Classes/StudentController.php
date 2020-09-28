@@ -107,4 +107,22 @@ class StudentController extends Controller
             return response()->json(['message'      => 'Cập nhật thất bại'], 500);
         }
     }
+    public function udpateStudentInClass(Request $request){
+        $st_class_id           = $request->has('class_id') ? $request->class_id : 0;
+        $st_class_status    = $request->has('st_class_status') ? $request->st_class_status : 0;
+        $st_status_paid     = $request->has('st_status_paid') ? $request->st_status_paid : 0;
+        $st_id              = $request->has('st_id') ? $request->st_id : 0;
+
+        $update  = DB::table('students_in_class')->where('st_id', $st_id)->update([
+            'st_status_paid'    => $st_status_paid,
+            'st_class_status'   => $st_class_status,
+            'st_class_id'       => $st_class_id
+        ]);
+
+        if($update) {
+            return response()->json(['message'      => 'Ok']);
+        }else{
+            return response()->json(['message'      => 'Failed'], 500);
+        }
+    }
 }

@@ -21,6 +21,6 @@ class StudentController extends Controller
         
         $return =  StudentResource::collection($data);
         return response()->json($return);
-            
     }
+    
 }
