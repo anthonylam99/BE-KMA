@@ -44,6 +44,25 @@ class ClassController extends Controller
                 'fee'               => $fee
             ]
         );
+        $id = DB::table('class')->where([
+            'class_code'    => $class_code,
+            'class_name'    => $class_name
+        ])->pluck('class_id')->toArray();
+
+        $dateRange = range(strtotime($class_start), strtotime($class_end), "86400");
+        array_walk_recursive($dateRange, function (&$element) {
+            $element = date("Y-m-d", $element);
+        });
+        $num = 0;
+        foreach ($dateRange as $value) {
+            $num += 1;
+            DB::table('class_schedule')->insert([
+                'class_id'          => $id[0],
+                'date_on_duty'      => $value,
+                'number_of_session' => $num
+            ]);
+        }
+
         if ($insert) {
             return response()->json(['message'      => 'Thêm mới thành công']);
         } else {
@@ -54,19 +73,32 @@ class ClassController extends Controller
     {
         $date = [];
         $startDate           =  $request->has('startDate') ? $request->startDate : "";
+        $endDate             =  date("Y-m-t", strtotime($startDate));
 
-        $time                = strtotime($startDate);
-        
-        $data = DB::table('class')->where('class_start', '>=', $time)->get();
+        $data = DB::table('class_schedule')
+            ->selectRaw('
+                class.class_id,
+                date_on_duty,
+                class_code,
+                class_name,
+                class_start,
+                class_end,
+                number_of_sessions
+            ')
+            ->join('class', 'class.class_id', '=', 'class_schedule.class_id')
+            ->whereBetween(DB::raw('date(date_on_duty)'), [$startDate, $endDate])
+            ->get()->map(function($item){
+                $item->class_start = date("Y-m-d",$item->class_start);
+                $item->class_end = date("Y-m-d",$item->class_end);
+
+                return $item;
+            });
+
+        $group = array();
+
         foreach ($data as $value) {
-            array_push($date, $value->class_end);
+            $group[$value->date_on_duty][] = $value;
         }
-        $endDate = date("Y-m-d", max(array_unique($date)));
-
-        $dateRange = range(strtotime($startDate), strtotime($endDate), "86400");
-        array_walk_recursive($dateRange, function (&$element) {
-            $element = date("Y-m-d", $element);
-        });
-        
+        return response()->json($group);
     }
 }
