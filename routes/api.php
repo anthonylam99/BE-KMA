@@ -77,3 +77,8 @@ Route::group(['prefix' => 'users', 'namespace' => 'User'], function () {
 Route::group(['namespace' => 'User'],  function () {
     Route::get('me', 'UserController@getMe');
 });
+
+Route::group(['namespace' => 'Api\V1'], function(){
+    Route::get('/create-payment','PaymentController@create');
+    Route::get('return','PaymentController@return');
+});
