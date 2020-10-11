@@ -22,11 +22,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function () {
 });
 
 Route::group(['prefix' => 'student', 'namespace' =>'Student'], function(){
-    Route::get('list-all','StudentController@allList');
+    Route::get('list-all','StudentController@all');
+    Route::get('list-all-class','StudentController@allListClass');
 });
 
 Route::group(['prefix' => 'teacher', 'namespace' =>'Teacher'], function(){
-    Route::get('list-all','TeacherController@getList');
+    Route::get('list-all','TeacherController@all');
 });
 
 
@@ -44,8 +45,10 @@ Route::group(['prefix' => 'teacher', 'namespace' =>'Teacher'], function(){
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::group(['namespace' => 'Classes', 'prefix' => 'class'], function () {
+        Route::get('all','ClassController@all');
         Route::get('get-schedule','ClassController@getSchedule');
 
+        Route::get('');
         Route::post('add-student', 'StudentController@addStudent');
         Route::post('student-checkin', 'StudentController@checkIn');
         Route::post('delete-student','StudentController@deleteStudentInClass');

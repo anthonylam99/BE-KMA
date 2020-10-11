@@ -8,6 +8,16 @@ use DB;
 
 class ClassController extends Controller
 {
+    public function all(){
+        $data = DB::table('class')->get()
+        ->map(function($item){
+            $item->class_start = date("Y-m-d",$item->class_start);
+            $item->class_end = date("Y-m-d",$item->class_end);
+
+            return $item;
+        });
+        return response()->json($data);
+    }
     public function add(Request $request)
     {
         $class_code         = $request->has('class_code') ? $request->class_code : "";

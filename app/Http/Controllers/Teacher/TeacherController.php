@@ -9,10 +9,14 @@ use DB;
 
 class TeacherController extends Controller
 {
-    public function getList(Request $request){
-        $data = DB::table('adm_user')->where('adm_group_id','LIKE','%' . 2 .'%')->get();
-        
-        $return =  TeacherResources::collection($data);
-        return response()->json($return);
+    public function all()
+    {
+        $data = DB::table('adm_user')->where('adm_group_id', 'LIKE', '%' . 3 . '%')->get()
+            ->map(function ($item) {
+                $item->adm_birthday = date("Y-m-d", $item->adm_birthday);
+
+                return $item;
+            });
+        return response()->json($data);
     }
 }

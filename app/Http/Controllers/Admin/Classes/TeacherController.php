@@ -9,6 +9,7 @@ use DB;
 
 class TeacherController extends Controller
 {
+    
     public function addTeacher(Request $request)
     {
         $tc_id         = $request->has('tc_id') ? $request->tc_id : 0;
@@ -28,11 +29,11 @@ class TeacherController extends Controller
                 DB::table('teacher_in_class')->updateOrInsert(
                     [
                         'tc_id'                         =>  $tc_id,
-                        'tc_class_name_id'              =>  $value['class_id']
+                        'tc_class_id'                   =>  $value['class_id']
                     ],
                     [
                         'tc_id'                         =>  $tc_id,
-                        'tc_class_name_id'              =>  $value['class_id'],
+                        'tc_class_id'                   =>  $value['class_id'],
                         'tc_teacher_class_status'       =>  $status,
                         'start_date'                    =>  $value['start_date']
                     ]
